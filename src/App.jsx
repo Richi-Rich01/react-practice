@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import React from 'react'
+
+const hobbies = ["Dancing", "Youtuber", "Music"]
 
 function App(){
   const [count, setCount] = useState(0)
@@ -11,16 +12,15 @@ function App(){
         <button onClick = { () => setCount(count + 1 )}>
           Click Me
          </button>
-         <div>
-          < Hobbies hobbies = "Dancing"/>
-          < Hobbies hobbies = "Youtuber"/>
-          < Hobbies hobbies = "Music"/>
-         </div>
+          {hobbies.map(function(hobby){
+            return <Hobbies hobby={hobby} key={hobby} />
+            })
+          }
     </div>
   )
 }
 
-function Hobbies({hobbies}){
-  return <h2> My hobbies are {hobbies} </h2>
+function Hobbies({hobby}){
+  return <h1> My hobbies are {hobby} </h1>
 }
 export default App
