@@ -1,34 +1,58 @@
 import { useState } from 'react'
 import './App.css'
 
-const hobbies = ["Dancing", "Youtuber", "Music"]
-
-
 function App(){
-  const [count, setCount] = useState(0)
-  const [name , setName] = useState("")
-  return (
+  const [tasks, setTasks] = useState([
+  { text: "learn react", done: false },
+  { text: "do laundry", done: false },
+  { text: "sleep at 10pm", done: false }
+  ])
+  const[newTask , setNewTask] = useState("")
+
+  function handleAddTask(){
+    if(newTask.trim() === ""){
+      return
+    }
+    setTasks([...tasks, { text: newTask, done: false }])
+    setNewTask("")
+  }
+
+  function handleDeleteTask(taskText){
+    setTasks(tasks.filter(function(task){
+      return task.text !== taskText
+    }))
+  }
+
+  function handleToggleTask(taskText){
+    setTasks(tasks.map(function(task){
+      if(task.text === taskText){
+        return {...task , done: !task.done }
+      }
+      return task
+    }))
+  }
+
+  return(
     <div>
-      <h1> COUNT is {count} </h1>
-        <button onClick = { () => setCount(count + 1 )}>
-          Click Me
-         </button>
-          {hobbies.map(function(hobby){
-            return <Hobbies hobby={hobby} key={hobby} />
-            })
-          }
-            <input
-              type = "text"
-              value = {name}
-              onChange = { (event) => setName(event.target.value)}
-            />
-            <p>You typed: {name}</p>
+      <h1>Tasks Tracker</h1>
+      <input
+        type="text"
+        value={newTask}
+        onChange={(event) => setNewTask(event.target.value)}
+      />
+      <button onClick={handleAddTask}>Add Tasks</button>
+      
+      <ul>
+        {tasks.map(function(task){
+          return <li key={task.text}>
+            <span style={{textDecoration: task.done ? "line-through" : "none"}}>{task.text}</span>
+            <button onClick={() => handleToggleTask(task.text)}>Toggle</button>
+            <button onClick={() => handleDeleteTask(task.text)}>Delete</button>
+          </li>
+        })}
+      </ul>
     </div>
   )
-}
-
-function Hobbies({hobby}){
-  return <h1> My hobbies are {hobby} </h1>
 }
 
 export default App
