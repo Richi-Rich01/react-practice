@@ -46,7 +46,7 @@ function App(){
         {tasks.map(function(task){
           return <li key={task.text}>
             <span style={{textDecoration: task.done ? "line-through" : "none"}}>{task.text}</span>
-            <button onClick={() => handleToggleTask(task.text)}>Toggle</button>
+            <button onClick={() => handleToggleTask(task.text)}>Completed</button>
             <button onClick={() => handleDeleteTask(task.text)}>Delete</button>
           </li>
         })}
