@@ -3,9 +3,10 @@ import './App.css'
 
 const hobbies = ["Dancing", "Youtuber", "Music"]
 
+
 function App(){
   const [count, setCount] = useState(0)
-
+  const [name , setName] = useState("")
   return (
     <div>
       <h1> COUNT is {count} </h1>
@@ -16,6 +17,12 @@ function App(){
             return <Hobbies hobby={hobby} key={hobby} />
             })
           }
+            <input
+              type = "text"
+              value = {name}
+              onChange = { (event) => setName(event.target.value)}
+            />
+            <p>You typed: {name}</p>
     </div>
   )
 }
@@ -23,4 +30,5 @@ function App(){
 function Hobbies({hobby}){
   return <h1> My hobbies are {hobby} </h1>
 }
+
 export default App
